@@ -13,7 +13,6 @@
 
 #include "core/console/console.hpp"
 #include "maths/constants.hpp"
-#include "glm/gtc/constants.hpp"
 #include "glm/gtx/norm.hpp"
 #include "glm/geometric.hpp"
 
@@ -217,7 +216,7 @@ Mesh Geometry3D::line(glm::vec3 startPosition, glm::vec3 endPosition)
     std::vector<glm::vec3> positions = {startPosition, endPosition};
     std::vector<unsigned int> indices = {0, 1};
 
-    return Mesh(std::move(positions), std::move(indices), DrawMode::LINES);
+    return Mesh(positions, indices, DrawMode::LINES);
 }
 
 Mesh Geometry3D::cone(float radius, float height, unsigned int sides)

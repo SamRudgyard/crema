@@ -1,11 +1,11 @@
 #include "mesh.hpp"
 
 Mesh::Mesh(
-    std::vector<glm::vec3> positions,
-    std::vector<glm::vec3> normals,
-    std::vector<glm::vec2> textureCoords,
-    std::vector<glm::vec4> tangents,
-    std::vector<unsigned int> indices,
+    const std::vector<glm::vec3>& positions,
+    const std::vector<glm::vec3>& normals,
+    const std::vector<glm::vec2>& textureCoords,
+    const std::vector<glm::vec4>& tangents,
+    const std::vector<unsigned int>& indices,
     DrawMode drawMode
 ) : positions(positions),
     normals(normals),
@@ -24,14 +24,13 @@ std::vector<unsigned int> Mesh::getIndices() const
     if (drawMode != DrawMode::LINES) {
         return indices;
     }
-
-    std::vector<unsigned int> lineIndices;
-
     if (indexCount < 3) {
         // A point or line doesn't require conversion
         // from triangles to lines, so return
         return indices;
     }
+
+    std::vector<unsigned int> lineIndices;
 
     // Each triangle (i0, i1, i2) becomes lines (i0, i1), (i1, i2), (i2, i0)
     // => x2 number of indices
@@ -63,13 +62,18 @@ void Mesh::setDrawMode(DrawMode mode)
 
 const unsigned int Mesh::getNumIndices() const
 {
-    if (drawMode == DrawMode::LINES) {
-        // Each triangle (i0, i1, i2) becomes lines (i0, i1), (i1, i2), (i2, i0)
-        // => x2 number of indices
-        return 2*indexCount;
+    if (drawMode != DrawMode::LINES) {
+        return indexCount;
+    }
+    if (indexCount < 3) {
+        // A point or line doesn't require conversion
+        // from triangles to lines, so return
+        return indexCount;
     }
 
-    return indexCount;
+    // Each triangle (i0, i1, i2) becomes lines (i0, i1), (i1, i2), (i2, i0)
+    // => x2 number of indices
+    return 2*indexCount;
 }
 
 bool Mesh::hasAttribute(AttributeType type) const
