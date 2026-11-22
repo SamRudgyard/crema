@@ -28,17 +28,17 @@ public:
     Mesh() = default;
 
     Mesh(
-        std::vector<glm::vec3> positions,
-        std::vector<unsigned int> indices,
+        const std::vector<glm::vec3>& positions,
+        const std::vector<unsigned int>& indices,
         DrawMode drawMode = DrawMode::TRIANGLES
-    ) : Mesh(std::move(positions), {}, {}, {}, std::move(indices), drawMode) {}
+    ) : Mesh(positions, {}, {}, {}, indices, drawMode) {}
 
     Mesh(
-        std::vector<glm::vec3> positions,
-        std::vector<glm::vec3> normals,
-        std::vector<glm::vec2> textureCoords,
-        std::vector<glm::vec4> tangents,
-        std::vector<unsigned int> indices,
+        const std::vector<glm::vec3>& positions,
+        const std::vector<glm::vec3>& normals,
+        const std::vector<glm::vec2>& textureCoords,
+        const std::vector<glm::vec4>& tangents,
+        const std::vector<unsigned int>& indices,
         DrawMode drawMode = DrawMode::TRIANGLES
     );
 
