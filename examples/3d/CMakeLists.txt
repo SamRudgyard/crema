@@ -23,3 +23,12 @@ target_link_libraries(3d_hello_cube
     PRIVATE
         crema::crema
 )
+
+add_executable(3d_geometry_gallery
+    ${CMAKE_CURRENT_LIST_DIR}/3d_geometry_gallery.cpp
+)
+
+target_link_libraries(3d_geometry_gallery
+    PRIVATE
+        crema::crema
+)
